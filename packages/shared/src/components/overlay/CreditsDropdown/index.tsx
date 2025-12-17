@@ -3,7 +3,7 @@ import { Dropdown, Progress, Tooltip } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import AvailableCreditsIcon from "@shared/assets/icons/AvailableCredits";
 import DownArrow from "@shared/assets/icons/DownArrow";
-import Button from "../Button";
+import Button from "@shared/components/primitives/Button";
 
 const CreditsDropdown = () => {
   const [open, setOpen] = useState(false);

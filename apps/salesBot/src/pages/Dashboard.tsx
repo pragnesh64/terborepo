@@ -1,64 +1,6 @@
-// import { CreditsDropdown } from "@shared";
-// import InfiniteDropdown, { OptionType } from "@shared/components/Dropdown";
-// import CustomInput from "@shared/components/Input";
-// import { useState } from "react";
-// import axios from "axios";
-
-// // Create Category API function
-// const createCategory = async (data: {
-//   name: string;
-// }): Promise<{ id: string }> => {
-//   try {
-//     const response = await axios.post(
-//       "https://api.salesbot.cloud/core/product_category/",
-//       data
-//     );
-
-//     // Adjust this based on your API response structure
-//     return {
-//       id:
-//         response.data.id ||
-//         response.data.data?.id ||
-//         response.data.category?.id,
-//     };
-//   } catch (error) {
-//     console.error("Error creating category:", error);
-//     throw error;
-//   }
-// };
-
-// function Dashboard() {
-//   const [country, setCountry] = useState<OptionType | null>(null);
-//   const [category, setCategory] = useState<OptionType | null>(null);
-
-//   return (
-//     <>
-//       <CreditsDropdown />
-
-//       <CustomInput formLabel="Name" required placeholder="Enter Name" />
-//       <CustomInput formLabel="Last Name" />
-
-//       <InfiniteDropdown
-//         formLabel="Country"
-//         placeholder="Select Country"
-//         apiUrl="https://api.salesbot.cloud/onboard/state/fetch_all"
-//         value={country}
-//         onChange={setCountry}
-//         isCreatable
-//         onCreate={async (value) => {
-//           return createCategory({ name: value });
-//         }}
-//         isRequired
-//       />
-//     </>
-//   );
-// }
-
-// export default Dashboard;
-
-import { CreditsDropdown } from "@shared";
-import InfiniteDropdown, { OptionType } from "@shared/components/Dropdown";
-import CustomInput from "@shared/components/Input";
+import InfiniteDropdown, { OptionType } from "@shared/components/form/Dropdown";
+import CustomInput from "@shared/components/form/Input";
+import CreditsDropdown from "@shared/components/overlay/CreditsDropdown";
 import axios from "axios";
 import { useState } from "react";
 
