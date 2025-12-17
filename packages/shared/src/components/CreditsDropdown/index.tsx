@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Dropdown, Progress, Tooltip } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import AvailableCreditsIcon from "@shared/assets/icons/AvailableCredits";
 import DownArrow from "@shared/assets/icons/DownArrow";
 import Button from "../Button";
 
-export default function CreditsDropdown() {
+const CreditsDropdown = () => {
   const [open, setOpen] = useState(false);
 
   // 🔹 API RESPONSE (example)
@@ -113,7 +113,7 @@ export default function CreditsDropdown() {
         className="bg-black hover:bg-black text-white font-semibold rounded-md"
         block
         size="large"
-        onClick={() => alert("Buy Credit clicked")}
+        onclick={() => alert("Buy Credit clicked")}
       >
         Buy Credit
       </Button>
@@ -128,13 +128,15 @@ export default function CreditsDropdown() {
       open={open}
       onOpenChange={setOpen}
     >
-      <div>
-        <Button className="flex items-center gap-2 px-4 py-2 !bg-[#FFFBEB] shadow-sm border !border-[#FFFBEB] rounded-md font-inter text-black normal-case">
-          <AvailableCreditsIcon size={16} />
+      <div className="inline-block">
+        <Button className="flex items-center gap-2 px-4 py-2 !bg-[#FFFBEB] shadow-sm border !border-[#FFFBEB] rounded-md font-inter !text-black normal-case">
+          <AvailableCreditsIcon size={16} className="text-gray-700" />
           Available Credits
           <DownArrow size={20} />
         </Button>
       </div>
     </Dropdown>
   );
-}
+};
+
+export default CreditsDropdown;

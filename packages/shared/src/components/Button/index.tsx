@@ -55,11 +55,12 @@ export type CustomButtonProps = {
   children?: React.ReactNode;
   variantType?: VariantType;
   fullWidth?: boolean;
-  onclick?: () => void;
+  onclick?: (e: any) => void;
   startIcon?: React.ReactNode;
   // Permission: PermissionType;
-  style?: React.CSSProperties; // replaces MUI sx
-} & Omit<AntButtonProps, "type">; // we override type system
+  style?: React.CSSProperties;
+  className?: string;
+} & Omit<AntButtonProps, "type">;
 
 const Button: React.FC<CustomButtonProps> = ({
   children,
@@ -69,6 +70,7 @@ const Button: React.FC<CustomButtonProps> = ({
   startIcon,
   // Permission,
   style,
+  className,
   ...props
 }) => {
   return (
@@ -78,11 +80,12 @@ const Button: React.FC<CustomButtonProps> = ({
       onClick={onclick}
       icon={startIcon}
       block={fullWidth}
+      className={className}
       style={{
         borderRadius: "12px",
         fontWeight: 500,
-        fontSize: "13px",
-        fontFamily: "Manrope",
+        fontSize: "14px",
+        fontFamily: "Inter",
         padding: children ? "7px 16px" : "8px",
         display: "flex",
         alignItems: "center",
