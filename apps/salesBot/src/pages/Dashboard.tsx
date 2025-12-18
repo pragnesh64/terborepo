@@ -1,10 +1,8 @@
-import CreditsDropdown from "@shared/components/overlay/CreditsDropdown";
 import CustomInput from "@shared/components/form/Input";
 
 import { useAlert } from "@shared/context";
-import { useEffect, useState } from "react";
-import FilterDrawer from './../../node_modules/@my-monorepo/shared/src/components/overlay/FilterDrawer';
-
+import { useEffect} from "react";
+import DemoFilterDrawer from "./DemoFilterDrawer";
 function Dashboard() {
   // const [categoryLookUp, setCategoryLookUp] = useState<OptionType | null>(null);
 
@@ -17,15 +15,7 @@ function Dashboard() {
   // };
 
   const showAlert = useAlert();
-  const [open, setOpen] = useState(false);
 
-  const showDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
 
   //   const [selectedCountry, setSelectedCountry] = useState<optionType | null>(
   //     null
@@ -43,15 +33,7 @@ function Dashboard() {
   }, []);
   return (
     <>
-      <button className="border m-10 p-5 cursor-pointer bg-blue-500 hover:bg-blue-700 rounded" onClick={showDrawer}>Open Filter Drawer</button>
-      <FilterDrawer
-        open={open}
-        onClose={() => setOpen(false)}
-        onApply={() => {
-          console.log("Apply Filter");
-          setOpen(false);
-        }}
-      />
+      
       {/* <Box sx={{ width: 320, mb: 4 }}>
         <Dropdown
           formLabel="Country"
@@ -90,6 +72,7 @@ function Dashboard() {
           })) || []
         }
       /> */}
+      <DemoFilterDrawer/>
     </>
   );
 }

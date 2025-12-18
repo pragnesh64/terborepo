@@ -7,4 +7,4 @@ export * from "./icons";
 // export * from "./media";
 // export * from "./navigation";
 // export * from "./overlay";
-// export * from "./primitives";
+export * from "./primitives";

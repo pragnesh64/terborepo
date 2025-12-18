@@ -16,7 +16,7 @@ export interface InfiniteDropdownProps<M extends boolean = false> {
     value: M extends true ? OptionType[] | null : OptionType | null
   ) => void;
   options?: OptionType[];
-  client: any;
+  client?: any;
   isCreatable?: boolean;
   onCreate?: (label: string) => Promise<any>;
   formLabel?: string;
