@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import CreditsDropdown from "@shared/components/overlay/CreditsDropdown";
-import InfiniteDropdown, { OptionType } from "@shared/components/form/Dropdown";
 import CustomInput from "@shared/components/form/Input";
+import { AuthClient } from "../lib/client";
+import InfiniteDropdown, { OptionType } from "@shared/components/form/Dropdown";
 
 function Dashboard() {
   const [categoryLookUp, setCategoryLookUp] = useState<OptionType | null>(null);
@@ -27,6 +28,7 @@ function Dashboard() {
         placeholder="Create or Select Category"
         apiUrl="https://api.salesbot.cloud/onboard/state/fetch_all"
         value={categoryLookUp}
+        client={AuthClient}
         onChange={(option) => {
           if (option) {
             setCategoryLookUp(option as OptionType);
@@ -35,9 +37,7 @@ function Dashboard() {
           }
         }}
         isCreatable={true}
-        onCreate={(value) => {
-          return createCategory({ name: value });
-        }}
+        onCreate={(value) => createCategory({ name: value })}
         isRequired={true}
         pageSize={10}
         mapResponseToOptions={(res) =>

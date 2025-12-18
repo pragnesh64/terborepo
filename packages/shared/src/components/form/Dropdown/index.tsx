@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Select, Spin, type SelectProps } from "antd";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 export type OptionType = {
   Id: string;
@@ -18,6 +18,7 @@ export interface InfiniteDropdownProps<M extends boolean = false> {
     value: M extends true ? OptionType[] | null : OptionType | null
   ) => void;
   options?: OptionType[];
+  client: any;
   isCreatable?: boolean;
   onCreate?: (label: string) => Promise<any>;
   formLabel?: string;
@@ -44,6 +45,7 @@ const InfiniteDropdown = <M extends boolean = false>(
     formLabel,
     placeholder = "Select...",
     errorMessage,
+    client,
     isRequired = false,
     filterValue,
     options: staticOptions,
@@ -61,6 +63,7 @@ const InfiniteDropdown = <M extends boolean = false>(
   const [isCreating, setIsCreating] = useState(false);
   const pageRef = useRef(1);
   const hasMoreRef = useRef(true);
+  const loadingRef = useRef(false);
   const searchRef = useRef("");
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -72,33 +75,24 @@ const InfiniteDropdown = <M extends boolean = false>(
     mapResponseRef.current = mapResponseToOptions;
   }, [mapResponseToOptions]);
 
-  // -------------------
-  // Fetching Options
-  // -------------------
   const loadOptions = useCallback(
     async (page = 1, search = "") => {
-      if (isStatic || !apiUrl || loading || !hasMoreRef.current) return;
+      if (!apiUrl || loadingRef.current || !hasMoreRef.current) return;
 
-      // Cancel previous request if still pending
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-
-      abortControllerRef.current = new AbortController();
+      loadingRef.current = true;
       setLoading(true);
 
       try {
-        const res = await axios.get(apiUrl, {
+        const res = await client.get(apiUrl, {
           params: {
             page,
             page_size: pageSize,
+            ...filterValue,
             ...(search ? { search } : {}),
-            ...(filterValue ?? {}),
           },
-          signal: abortControllerRef.current.signal,
         });
 
-        const newOptions = mapResponseRef.current(res);
+        const newOptions = mapResponseToOptions(res);
 
         setOptions((prev) =>
           page === 1 ? newOptions : [...prev, ...newOptions]
@@ -107,15 +101,12 @@ const InfiniteDropdown = <M extends boolean = false>(
         hasMoreRef.current = newOptions.length >= pageSize;
         if (hasMoreRef.current) pageRef.current = page;
       } catch (error) {
-        if (!axios.isCancel(error)) {
-          console.error("Error loading options:", error);
-        }
       } finally {
+        loadingRef.current = false;
         setLoading(false);
-        abortControllerRef.current = null;
       }
     },
-    [apiUrl, pageSize, filterValue, isStatic, loading]
+    [apiUrl, pageSize, mapResponseToOptions, filterValue]
   );
 
   // -------------------
@@ -306,7 +297,6 @@ const InfiniteDropdown = <M extends boolean = false>(
       <Select
         className="w-full h-10"
         placeholder={placeholder}
-        // showSearch
         allowClear
         style={{ borderRadius: 8 }}
         mode={multiple ? "multiple" : undefined}
