@@ -24,11 +24,9 @@
     "packages/*"
   ],
   "dependencies": {
-    "@ant-design/icons": "^6.1.0",
     "@fontsource/inter": "^5.2.8",
     "@reduxjs/toolkit": "^2.11.2",
     "@tanstack/react-query": "^5.90.12",
-    "antd": "^6.1.1",
     "axios": "^1.13.2",
     "moment": "^2.30.1",
     "react": "18.2.0",

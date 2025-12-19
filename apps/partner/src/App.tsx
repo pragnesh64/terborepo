@@ -1,7 +1,5 @@
-import AppRoutes from './routes';
-
 function App() {
-    return <AppRoutes />
+  return <>Partner</>;
 }
 
 export default App;

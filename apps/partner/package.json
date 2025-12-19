@@ -10,10 +10,8 @@
         "clean": "rm -rf dist"
     },
     "dependencies": {
-        "@ant-design/icons": "^6.1.0",
         "@my-monorepo/shared": "workspace:*",
         "@tanstack/react-query": "^5.62.8",
-        "antd": "^6.1.1",
         "axios": "^1.7.9",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
